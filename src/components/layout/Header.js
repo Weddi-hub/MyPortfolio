@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { AppBar, Box, Divider, Drawer, IconButton, Toolbar, Typography } from "@mui/material"
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { Phone } from '@mui/icons-material';
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import ContactModal from '../ContactModal';
 import '../style/HS.css'
 
@@ -14,6 +14,7 @@ const Header = () => {
   const [mobileOpen , setMobileopen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const HandleDrawerToggle = () =>{
     setMobileopen(!mobileOpen);
@@ -22,63 +23,66 @@ const Header = () => {
   // Smooth scroll function
   const handleScrollToSkills = (e) => {
     e.preventDefault();
-    setMobileopen(false); // Close mobile drawer if open
+    setMobileopen(false);
     
     if (location.pathname === '/') {
-      // If already on home page, scroll to skills section
       const skillsSection = document.getElementById('skills');
       if (skillsSection) {
         skillsSection.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // If not on home page, navigate to home and scroll
-      window.location.href = '/#skills';
+      navigate('/');
+      setTimeout(() => {
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+          skillsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   }
 
   // Smooth scroll to About
   const handleScrollToAbout = (e) => {
     e.preventDefault();
-    setMobileopen(false); // Close mobile drawer if open
+    setMobileopen(false);
     
     if (location.pathname === '/') {
-      // If already on home page, scroll to about section
       const aboutSection = document.getElementById('about');
       if (aboutSection) {
         aboutSection.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // If not on home page, navigate to home and scroll
-      window.location.href = '/#about';
+      navigate('/');
+      setTimeout(() => {
+        const aboutSection = document.getElementById('about');
+        if (aboutSection) {
+          aboutSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   }
 
   // Smooth scroll to Home
   const handleScrollToHome = (e) => {
     e.preventDefault();
-    setMobileopen(false); // Close mobile drawer if open
+    setMobileopen(false);
     
     if (location.pathname === '/') {
-      // If already on home page, scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      // If not on home page, navigate to home
-      window.location.href = '/';
+      navigate('/');
     }
   }
 
   // Navigate to Work page and scroll to top
   const handleScrollToWork = (e) => {
     e.preventDefault();
-    setMobileopen(false); // Close mobile drawer if open
+    setMobileopen(false);
     
-    if (location.pathname === '/Work') {
-      // If already on work page, scroll to top
+    navigate('/Work');
+    setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      // If not on work page, navigate to work page
-      window.location.href = '/Work';
-    }
+    }, 100);
   }
   const drawer = (
     <Box onClick={HandleDrawerToggle} sx={{textAlign : 'center' , color:'white'}}>
@@ -100,16 +104,16 @@ const Header = () => {
           <Divider/>
                 <ul className='mob_menu'>
                       <li>
-                      <a href="/" onClick={handleScrollToHome} style={{ textDecoration: 'none', color: 'inherit' }}>Home</a>
+                      <a href="#" onClick={handleScrollToHome} style={{ textDecoration: 'none', color: 'inherit' }}>Home</a>
                       </li> 
                       <li>
-                      <a href="/#about" onClick={handleScrollToAbout} style={{ textDecoration: 'none', color: 'inherit' }}>About</a>
+                      <a href="#" onClick={handleScrollToAbout} style={{ textDecoration: 'none', color: 'inherit' }}>About</a>
                       </li>
                       <li>
-                      <a href="/#skills" onClick={handleScrollToSkills} style={{ textDecoration: 'none', color: 'inherit' }}>Skills</a>
+                      <a href="#" onClick={handleScrollToSkills} style={{ textDecoration: 'none', color: 'inherit' }}>Skills</a>
                       </li>
                       <li>
-                      <a href="/Work" onClick={handleScrollToWork} style={{ textDecoration: 'none', color: 'inherit' }}>Work</a>
+                      <a href="#" onClick={handleScrollToWork} style={{ textDecoration: 'none', color: 'inherit' }}>Work</a>
                       </li>
                 </ul>
 
@@ -161,7 +165,7 @@ const Header = () => {
                   width: '100%'
                 }}>
                       <li style={{ margin: 0, listStyle: 'none' }}>
-                      <a href="/" onClick={handleScrollToHome} style={{ 
+                      <a href="#" onClick={handleScrollToHome} style={{ 
                         textDecoration: 'none', 
                         color: 'white',
                         padding: '8px 12px',
@@ -182,7 +186,7 @@ const Header = () => {
                       }}>Home</a>
                       </li> 
                       <li style={{ margin: 0, listStyle: 'none' }}>
-                      <a href="/#about" onClick={handleScrollToAbout} style={{ 
+                      <a href="#" onClick={handleScrollToAbout} style={{ 
                         textDecoration: 'none', 
                         color: 'white',
                         padding: '8px 12px',
@@ -203,7 +207,7 @@ const Header = () => {
                       }}>About</a>
                       </li>
                       <li style={{ margin: 0, listStyle: 'none' }}>
-                      <a href="/#skills" onClick={handleScrollToSkills} style={{ 
+                      <a href="#" onClick={handleScrollToSkills} style={{ 
                         textDecoration: 'none', 
                         color: 'white',
                         padding: '8px 12px',
@@ -224,7 +228,7 @@ const Header = () => {
                       }}>Skills</a>
                       </li>
                       <li style={{ margin: 0, listStyle: 'none' }}>
-                      <a href="/Work" onClick={handleScrollToWork} style={{ 
+                      <a href="#" onClick={handleScrollToWork} style={{ 
                         textDecoration: 'none', 
                         color: 'white',
                         padding: '8px 12px',
