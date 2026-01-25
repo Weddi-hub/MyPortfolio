@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Wellfleet&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Wellfleet", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+body{
+  font-family : roboto , serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive Image Fix */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Mobile Touch Optimization */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Media Query for preventing zoom on mobile */
+input,
+textarea,
+select {
+  font-size: 16px;
+}
+
+/* Prevent layout shift on smaller devices */
+@media (max-width: 768px) {
+  body {
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  html {
+    width: 100%;
+  }
+}
+
+/* Ensure proper scaling on all devices */
+@supports (padding: clamp(0px, 1vw, 1px)) {
+  body {
+    font-size: clamp(14px, 2vw, 16px);
+  }
+}

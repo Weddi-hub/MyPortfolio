@@ -1,0 +1,236 @@
+/* Contact Modal Animation */
+
+.MuiDialog-paper {
+  animation: contactModalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes contactModalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.3) translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.contact-modal-container {
+  padding: 20px 30px;
+  position: relative;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  text-align: center;
+}
+
+.contact-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  animation: phoneIconBounce 0.6s ease-out;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+@keyframes phoneIconBounce {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.contact-title {
+  animation: titleFadeIn 0.5s ease-out 0.2s both;
+}
+
+@keyframes titleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-close-btn {
+  animation: closeButtonPulse 0.4s ease-out;
+  transition: all 0.3s ease !important;
+}
+
+@keyframes closeButtonPulse {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.contact-close-btn:hover {
+  animation: closeButtonSpin 0.6s linear infinite;
+}
+
+@keyframes closeButtonSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.contact-call-btn {
+  animation: callButtonSlideUp 0.5s ease-out 0.3s both;
+}
+
+.contact-email-btn {
+  animation: callButtonSlideUp 0.5s ease-out 0.35s both;
+}
+
+@keyframes callButtonSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-call-btn:hover,
+.contact-email-btn:hover {
+  transform: scale(1.05) !important;
+}
+
+.contact-call-btn:active,
+.contact-email-btn:active {
+  transform: scale(0.98) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-modal-container {
+    padding: 20px 25px;
+  }
+
+  .contact-icon-wrapper {
+    width: 75px;
+    height: 75px;
+  }
+
+  .contact-icon-wrapper svg {
+    font-size: 40px !important;
+  }
+
+  .contact-title {
+    font-size: 1.5rem !important;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
+  .contact-call-btn,
+  .contact-email-btn {
+    padding: 12px 16px !important;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-modal-container {
+    padding: 15px 20px;
+  }
+
+  .contact-icon-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+
+  .contact-icon-wrapper svg {
+    font-size: 38px !important;
+  }
+
+  .contact-title {
+    font-size: 1.3rem !important;
+    margin-top: 15px;
+    margin-bottom: 12px;
+  }
+
+  .contact-call-btn,
+  .contact-email-btn {
+    padding: 11px 14px !important;
+    font-size: 0.9rem;
+    margin-bottom: 8px !important;
+  }
+
+  .MuiChip-root {
+    font-size: 0.9rem !important;
+    padding: 12px 8px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-modal-container {
+    padding: 12px 15px;
+  }
+
+  .contact-icon-wrapper {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto;
+  }
+
+  .contact-icon-wrapper svg {
+    font-size: 32px !important;
+  }
+
+  .contact-title {
+    font-size: 1.1rem !important;
+    margin-top: 12px;
+    margin-bottom: 10px;
+  }
+
+  .contact-call-btn,
+  .contact-email-btn {
+    padding: 10px 12px !important;
+    font-size: 0.85rem;
+    margin-bottom: 6px !important;
+  }
+
+  .MuiChip-root {
+    font-size: 0.8rem !important;
+    padding: 10px 6px !important;
+  }
+
+  Typography {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Backdrop animation */
+.MuiBackdrop-root {
+  animation: backdropFadeIn 0.3s ease-out;
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

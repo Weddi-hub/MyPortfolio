@@ -1,0 +1,168 @@
+.about-section {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(72, 61, 139, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(106, 90, 205, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.about-title {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, #483d8b, #6a5acd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideInDown 0.6s ease-out;
+}
+
+.about-card {
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(72, 61, 139, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 48px rgba(72, 61, 139, 0.3);
+}
+
+.interest-tag {
+  position: relative;
+  z-index: 1;
+  animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .about-section {
+    padding: 50px 20px;
+  }
+
+  .about-title {
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+
+  .about-card {
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 40px 15px;
+  }
+
+  .about-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .about-card {
+    margin-bottom: 20px;
+    padding: 24px !important;
+  }
+
+  .interest-tag {
+    padding: 16px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-section {
+    padding: 30px 12px;
+  }
+
+  .about-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .about-card {
+    padding: 20px !important;
+    margin-bottom: 15px;
+  }
+
+  .about-card h5 {
+    font-size: 1.1rem !important;
+  }
+
+  .about-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .interest-tag {
+    padding: 12px !important;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 20px 10px;
+  }
+
+  .about-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .about-card {
+    padding: 16px !important;
+    margin-bottom: 12px;
+  }
+
+  .about-card h5 {
+    font-size: 1rem !important;
+    margin-bottom: 10px;
+  }
+
+  .about-card p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .interest-tag {
+    padding: 10px !important;
+    font-size: 0.85rem;
+    margin: 5px 3px;
+  }
+}

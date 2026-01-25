@@ -1,0 +1,154 @@
+.skills-section {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(72, 61, 139, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(106, 90, 205, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.skills-title {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, #483d8b, #6a5acd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideInDown 0.6s ease-out;
+}
+
+.skill-card {
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(72, 61, 139, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.skill-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 48px rgba(72, 61, 139, 0.3);
+}
+
+/* Animations */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .skills-section {
+    padding: 50px 20px;
+  }
+
+  .skills-title {
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+
+  .skill-card {
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-section {
+    padding: 40px 15px;
+  }
+
+  .skills-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .skill-card {
+    margin-bottom: 20px;
+    padding: 24px !important;
+  }
+
+  .skill-card h6 {
+    font-size: 1.1rem !important;
+  }
+
+  .skill-card .MuiLinearProgress-root {
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .skills-section {
+    padding: 30px 12px;
+  }
+
+  .skills-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .skill-card {
+    padding: 20px !important;
+    margin-bottom: 15px;
+  }
+
+  .skill-card h6 {
+    font-size: 1rem !important;
+    margin-bottom: 8px;
+  }
+
+  .skill-card p {
+    font-size: 0.9rem;
+  }
+
+  .skill-card .MuiLinearProgress-root {
+    height: 6px;
+    margin: 8px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-section {
+    padding: 20px 10px;
+  }
+
+  .skills-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .skill-card {
+    padding: 16px !important;
+    margin-bottom: 12px;
+  }
+
+  .skill-card h6 {
+    font-size: 0.95rem !important;
+    margin-bottom: 8px;
+  }
+
+  .skill-card p {
+    font-size: 0.85rem;
+  }
+
+  .skill-card .MuiLinearProgress-root {
+    height: 5px;
+    margin: 6px 0;
+  }
+}
