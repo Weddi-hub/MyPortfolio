@@ -35,61 +35,92 @@ const RatingsSection = () => {
   const [loadingRatings, setLoadingRatings] = useState(true);
   const [sliderIndex, setSliderIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
+
+  // Cleanup effect for success/error messages
+  useEffect(() => {
+    let errorTimer;
+    if (submitError) {
+      errorTimer = setTimeout(() => {
+        setSubmitError('');
+      }, 5000);
+    }
+    return () => {
+      if (errorTimer) clearTimeout(errorTimer);
+    };
+  }, [submitError]);
 
   // Fetch ratings from Firebase
   useEffect(() => {
+    let isMounted = true;
     const ratingsRef = ref(database, 'ratings');
     
     const unsubscribe = onValue(
       ratingsRef,
       (snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const ratingsArray = Object.entries(data).map(([key, value]) => ({
-            id: key,
-            ...value
-          }));
-          // Sort by newest first
-          ratingsArray.sort((a, b) => b.timestamp - a.timestamp);
-          setRatings(ratingsArray);
-        } else {
+        if (!isMounted) return;
+        
+        try {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            const ratingsArray = Object.entries(data).map(([key, value]) => ({
+              id: key,
+              ...value
+            }));
+            // Sort by newest first
+            ratingsArray.sort((a, b) => b.timestamp - a.timestamp);
+            setRatings(ratingsArray);
+          } else {
+            setRatings([]);
+          }
+        } catch (err) {
+          console.error('Error processing ratings:', err);
           setRatings([]);
+        } finally {
+          if (isMounted) {
+            setLoadingRatings(false);
+          }
         }
-        setLoadingRatings(false);
       },
       (error) => {
         console.error('Error fetching ratings:', error);
-        setLoadingRatings(false);
+        if (isMounted) {
+          setLoadingRatings(false);
+          setRatings([]);
+        }
       }
     );
 
-    return () => unsubscribe();
+    return () => {
+      isMounted = false;
+      if (unsubscribe && typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
+    };
   }, []);
 
   // Handle touch swipe for mobile
   const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
+    if (e.targetTouches && e.targetTouches[0]) {
+      setTouchStart(e.targetTouches[0].clientX);
+    }
   };
 
   const handleTouchEnd = (e) => {
-    setTouchEnd(e.changedTouches[0].clientX);
-    handleSwipe();
-  };
-
-  const handleSwipe = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      // Swipe left - go to next
-      setSliderIndex(Math.min(ratings.length - 1, sliderIndex + 1));
-    }
-    if (isRightSwipe) {
-      // Swipe right - go to previous
-      setSliderIndex(Math.max(0, sliderIndex - 1));
+    if (e.changedTouches && e.changedTouches[0] && touchStart) {
+      const touchEndX = e.changedTouches[0].clientX;
+      const distance = touchStart - touchEndX;
+      
+      if (distance > 50 && ratings.length > 0) {
+        // Swipe left - go to next
+        setSliderIndex((prevIndex) => Math.min(ratings.length - 1, prevIndex + 1));
+      }
+      if (distance < -50 && ratings.length > 0) {
+        // Swipe right - go to previous
+        setSliderIndex((prevIndex) => Math.max(0, prevIndex - 1));
+      }
+      
+      // Reset touch start
+      setTouchStart(0);
     }
   };
 
@@ -135,14 +166,19 @@ const RatingsSection = () => {
       setRating(0);
       setFeedback('');
       setSubmitSuccess(true);
+      setSubmitError('');
 
-      // Hide success message after 3 seconds
-      setTimeout(() => {
+      // Hide success message after 4 seconds
+      const successTimer = setTimeout(() => {
         setSubmitSuccess(false);
-      }, 3000);
+      }, 4000);
+
+      // Cleanup timeout
+      return () => clearTimeout(successTimer);
     } catch (error) {
       console.error('Error submitting rating:', error);
       setSubmitError('Failed to submit rating. Please try again.');
+      setSubmitSuccess(false);
     } finally {
       setLoading(false);
     }
@@ -225,6 +261,7 @@ const RatingsSection = () => {
                   {/* Name Input */}
                   <TextField
                     fullWidth
+                    className="rating-input"
                     label="Your Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -246,6 +283,7 @@ const RatingsSection = () => {
                   {/* Company Input */}
                   <TextField
                     fullWidth
+                    className="rating-input"
                     label="Company/Organization (Optional)"
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
@@ -292,30 +330,22 @@ const RatingsSection = () => {
                     )}
                   </Box>
 
-                  {/* Feedback Textarea */}
-                  <TextField
-                    fullWidth
-                    label="Your Feedback"
-                    value={feedback}
-                    onChange={(e) => setFeedback(e.target.value)}
-                    placeholder="Share your experience working with me..."
-                    variant="outlined"
-                    multiline
-                    rows={5}
-                    helperText={`${feedback.length}/300 characters`}
-                    inputProps={{ maxLength: 300 }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        '&:hover fieldset': {
-                          borderColor: '#667eea',
-                        },
-                        '&.Mui-focused fieldset': {
-                          borderColor: '#667eea',
-                        },
-                      },
-                    }}
-                    disabled={loading}
-                  />
+                  {/* Feedback Textarea (simple textarea to avoid ResizeObserver noise) */}
+                  <Box>
+                    <Typography sx={{ mb: 1, fontWeight: '500', color: '#333' }}>Your Feedback</Typography>
+                    <textarea
+                      className="rating-feedback-textarea"
+                      value={feedback}
+                      onChange={(e) => setFeedback(e.target.value)}
+                      placeholder="Share your experience working with me..."
+                      rows={5}
+                      maxLength={300}
+                      disabled={loading}
+                    />
+                    <Typography variant="caption" sx={{ color: '#666', mt: 1 }}>
+                      {feedback.length}/300 characters
+                    </Typography>
+                  </Box>
 
                   {/* Submit Button */}
                   <Button
@@ -324,18 +354,11 @@ const RatingsSection = () => {
                     size="large"
                     disabled={loading}
                     startIcon={loading ? <CircularProgress size={24} /> : <Send />}
+                    className="submit-rating-btn"
                     sx={{
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                      color: 'white',
-                      padding: '12px 24px',
-                      fontSize: '1rem',
-                      fontWeight: 'bold',
-                      textTransform: 'capitalize',
                       '&:hover': {
                         transform: 'translateY(-2px)',
-                        boxShadow: '0 12px 28px rgba(102, 126, 234, 0.4)',
                       },
-                      transition: 'all 0.3s ease',
                     }}
                   >
                     {loading ? 'Submitting...' : 'Submit Rating'}
@@ -349,10 +372,11 @@ const RatingsSection = () => {
           <Grid item xs={12} md={6}>
             <Paper
               elevation={0}
+              className="why-rating-paper"
               sx={{
                 p: { xs: 3, md: 4 },
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
+                color: '#000',
                 borderRadius: '12px',
               }}
             >
@@ -434,8 +458,11 @@ const RatingsSection = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 }, justifyContent: 'center', minHeight: { xs: '350px', sm: '400px', md: '450px' } }}>
                 {/* Previous Button */}
                 <IconButton
-                  onClick={() => setSliderIndex(Math.max(0, sliderIndex - 1))}
-                  disabled={sliderIndex === 0}
+                  onClick={() => {
+                    const newIndex = Math.max(0, (sliderIndex || 0) - 1);
+                    setSliderIndex(newIndex);
+                  }}
+                  disabled={(sliderIndex || 0) === 0}
                   sx={{
                     color: '#667eea',
                     flexShrink: 0,
@@ -465,7 +492,7 @@ const RatingsSection = () => {
                       display: 'flex',
                       gap: 3,
                       transition: 'transform 0.3s ease',
-                      transform: `translateX(calc(-${sliderIndex} * 100% - ${sliderIndex * 12}px))`,
+                      transform: `translateX(calc(-${sliderIndex || 0} * 100% - ${(sliderIndex || 0) * 12}px))`,
                       width: '100%',
                     }}
                   >
@@ -651,8 +678,11 @@ const RatingsSection = () => {
 
                 {/* Next Button */}
                 <IconButton
-                  onClick={() => setSliderIndex(Math.min(ratings.length - 1, sliderIndex + 1))}
-                  disabled={sliderIndex === ratings.length - 1}
+                  onClick={() => {
+                    const newIndex = Math.min(ratings.length - 1, (sliderIndex || 0) + 1);
+                    setSliderIndex(newIndex);
+                  }}
+                  disabled={(sliderIndex || 0) >= ratings.length - 1}
                   sx={{
                     color: '#667eea',
                     flexShrink: 0,

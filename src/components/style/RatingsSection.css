@@ -43,7 +43,7 @@
   box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15) !important;
   padding: 40px;
   margin-bottom: 50px;
-  max-width: 600px;
+  max-width: 540px;
   margin-left: auto;
   margin-right: auto;
   color: #000 !important;
@@ -66,6 +66,47 @@
   background-color: #ffffff !important;
   color: #000 !important;
   border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Plain textarea used in RatingsSection */
+.rating-feedback-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(102, 126, 234, 0.25);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #111;
+  background: #fff;
+  min-height: 120px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.rating-input .MuiOutlinedInput-input,
+.rating-input .MuiOutlinedInput-root {
+  padding: 12px !important;
+}
+
+.submit-rating-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  width: 100%;
+  padding: 12px 20px !important;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.28) !important;
+}
+
+/* Ensure helper text is small and aligned */
+.rating-form-container .MuiFormHelperText-root {
+  color: #666 !important;
+  margin-top: 6px !important;
 }
 
 .rating-form-container .MuiOutlinedInput-root:hover {
@@ -572,10 +613,29 @@
 
   .rating-slider {
     gap: 12px;
+    padding: 0 8px;
   }
 
   .rating-card {
-    width: calc(100% - 12px);
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+  }
+
+  /* Make the inner slider center cards and allow a preview of adjacent card */
+  .rating-slider-container > .rating-slider,
+  .rating-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Slightly reduce gap on very small screens */
+  @media (max-width: 360px) {
+    .rating-card {
+      max-width: 320px;
+    }
   }
 
   .slider-nav-btn {
@@ -687,4 +747,18 @@
 .rating-card-date {
   color: #999;
   font-weight: 500;
+}
+
+/* Force black text color inside the "Why Leave a Rating" purple panel only (text only) */
+.why-rating-paper .MuiTypography-root,
+.why-rating-paper p,
+.why-rating-paper strong,
+.why-rating-paper span,
+.why-rating-paper .MuiTypography-root * {
+  color: #000 !important;
+}
+
+/* keep SVG icons and explicit color overrides intact */
+.why-rating-paper .MuiSvgIcon-root {
+  color: inherit;
 }
