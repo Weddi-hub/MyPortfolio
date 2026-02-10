@@ -34,6 +34,8 @@ const RatingsSection = () => {
   const [ratings, setRatings] = useState([]);
   const [loadingRatings, setLoadingRatings] = useState(true);
   const [sliderIndex, setSliderIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
   // Fetch ratings from Firebase
   useEffect(() => {
@@ -64,6 +66,32 @@ const RatingsSection = () => {
 
     return () => unsubscribe();
   }, []);
+
+  // Handle touch swipe for mobile
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    setTouchEnd(e.changedTouches[0].clientX);
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      // Swipe left - go to next
+      setSliderIndex(Math.min(ratings.length - 1, sliderIndex + 1));
+    }
+    if (isRightSwipe) {
+      // Swipe right - go to previous
+      setSliderIndex(Math.max(0, sliderIndex - 1));
+    }
+  };
 
   // Handle form submission
   const handleSubmitRating = async (e) => {
@@ -427,7 +455,10 @@ const RatingsSection = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     minWidth: 0,
+                    touchAction: 'pan-y',
                   }}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
                 >
                   <Box
                     sx={{
@@ -461,7 +492,7 @@ const RatingsSection = () => {
                             },
                             borderRadius: '16px',
                             border: '1px solid rgba(102, 126, 234, 0.15)',
-                            minHeight: { xs: '320px', sm: '360px', md: '380px' },
+                            minHeight: { xs: '340px', sm: '380px', md: '420px' },
                             maxWidth: '500px',
                             width: '100%',
                             background: 'white',
@@ -477,7 +508,7 @@ const RatingsSection = () => {
                               top: 0,
                               left: 0,
                               right: 0,
-                              height: '4px',
+                              height: '5px',
                               background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)',
                             }}
                           />
@@ -489,7 +520,7 @@ const RatingsSection = () => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: 1,
-                                mb: 2,
+                                mb: 2.5,
                                 pb: 2,
                                 borderBottom: '1px solid rgba(102, 126, 234, 0.1)',
                               }}
@@ -500,7 +531,7 @@ const RatingsSection = () => {
                                   alignItems: 'center',
                                   gap: 0.5,
                                   backgroundColor: 'rgba(255, 184, 0, 0.1)',
-                                  padding: '6px 12px',
+                                  padding: { xs: '5px 10px', md: '6px 12px' },
                                   borderRadius: '20px',
                                 }}
                               >
@@ -518,7 +549,7 @@ const RatingsSection = () => {
                                   sx={{
                                     fontWeight: 'bold',
                                     color: '#FFB800',
-                                    fontSize: '0.9rem',
+                                    fontSize: { xs: '0.85rem', md: '0.9rem' },
                                     ml: 0.5,
                                   }}
                                 >
@@ -528,14 +559,14 @@ const RatingsSection = () => {
                             </Box>
 
                             {/* Client Info */}
-                            <Box sx={{ mb: 2 }}>
+                            <Box sx={{ mb: 2.5 }}>
                               <Typography
                                 variant="h6"
                                 sx={{
                                   fontWeight: '700',
                                   color: '#1a1a1a',
                                   mb: 0.3,
-                                  fontSize: '1.15rem',
+                                  fontSize: { xs: '1rem', md: '1.15rem' },
                                   letterSpacing: '-0.3px',
                                 }}
                               >
@@ -544,7 +575,7 @@ const RatingsSection = () => {
                               <Typography
                                 sx={{
                                   color: '#667eea',
-                                  fontSize: '0.9rem',
+                                  fontSize: { xs: '0.8rem', md: '0.9rem' },
                                   fontWeight: '600',
                                   textTransform: 'uppercase',
                                   letterSpacing: '0.5px',
@@ -571,7 +602,7 @@ const RatingsSection = () => {
                                   padding: { xs: '10px 12px', md: '12px 14px' },
                                   borderLeft: '3px solid #667eea',
                                   borderRadius: '4px',
-                                  minHeight: { xs: '80px', md: '95px' },
+                                  minHeight: { xs: '85px', md: '100px' },
                                 }}
                               >
                                 "{ratingItem.feedback}"
@@ -592,7 +623,7 @@ const RatingsSection = () => {
                                 variant="caption"
                                 sx={{
                                   color: '#999',
-                                  fontSize: '0.8rem',
+                                  fontSize: { xs: '0.75rem', md: '0.8rem' },
                                   fontWeight: '500',
                                 }}
                               >
