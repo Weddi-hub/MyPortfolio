@@ -159,14 +159,14 @@ const RatingsSection = () => {
         <Grid container spacing={4} sx={{ mb: 6 }}>
           <Grid item xs={12} md={6}>
             <Paper
-              elevation={3}
+              elevation={5}
               className="rating-form-container"
               sx={{
                 p: { xs: 2.5, sm: 3, md: 4 },
                 borderRadius: '16px',
-                background: 'white',
-                border: '1px solid rgba(102, 126, 234, 0.15)',
-                boxShadow: '0 8px 24px rgba(102, 126, 234, 0.12)',
+                background: '#ffffff',
+                border: '2px solid rgba(102, 126, 234, 0.2)',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
               }}
             >
               <Typography
@@ -403,13 +403,14 @@ const RatingsSection = () => {
           ) : (
             <Box>
               {/* Slider Container */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 }, justifyContent: 'center', minHeight: { xs: '350px', sm: '400px', md: '450px' } }}>
                 {/* Previous Button */}
                 <IconButton
                   onClick={() => setSliderIndex(Math.max(0, sliderIndex - 1))}
                   disabled={sliderIndex === 0}
                   sx={{
                     color: '#667eea',
+                    flexShrink: 0,
                     '&:disabled': { color: '#ccc' },
                     '&:hover': { backgroundColor: 'rgba(102, 126, 234, 0.1)' },
                   }}
@@ -423,7 +424,9 @@ const RatingsSection = () => {
                     flex: 1,
                     overflow: 'hidden',
                     position: 'relative',
-                    px: { xs: 1, sm: 2 },
+                    display: 'flex',
+                    justifyContent: 'center',
+                    minWidth: 0,
                   }}
                 >
                   <Box
@@ -431,7 +434,8 @@ const RatingsSection = () => {
                       display: 'flex',
                       gap: 3,
                       transition: 'transform 0.3s ease',
-                      transform: `translateX(-${sliderIndex * 100}%)`,
+                      transform: `translateX(calc(-${sliderIndex} * 100% - ${sliderIndex * 12}px))`,
+                      width: '100%',
                     }}
                   >
                     {ratings.map((ratingItem) => (
@@ -442,8 +446,7 @@ const RatingsSection = () => {
                           flexShrink: 0,
                           display: 'flex',
                           justifyContent: 'center',
-                          pr: 2,
-                          pl: 2,
+                          px: { xs: 1, sm: 2 },
                         }}
                       >
                         <Card
@@ -621,6 +624,7 @@ const RatingsSection = () => {
                   disabled={sliderIndex === ratings.length - 1}
                   sx={{
                     color: '#667eea',
+                    flexShrink: 0,
                     '&:disabled': { color: '#ccc' },
                     '&:hover': { backgroundColor: 'rgba(102, 126, 234, 0.1)' },
                   }}

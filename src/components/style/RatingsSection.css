@@ -139,6 +139,7 @@
 @media (max-width: 768px) {
   .ratings-section {
     padding: 40px 15px;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
   }
 
   .ratings-title {
@@ -147,10 +148,15 @@
 
   .rating-form-container {
     padding: 20px !important;
+    background: #ffffff !important;
+    border: 2px solid rgba(102, 126, 234, 0.2) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
   }
 
   .rating-card {
     margin-bottom: 8px;
+    background: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15) !important;
   }
 
   .rating-card h6 {
@@ -165,6 +171,7 @@
 @media (max-width: 600px) {
   .ratings-section {
     padding: 30px 12px;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
   }
 
   .ratings-title {
@@ -174,11 +181,16 @@
 
   .rating-form-container {
     padding: 16px !important;
+    background: #ffffff !important;
+    border: 2px solid rgba(102, 126, 234, 0.2) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
   }
 
   .rating-card {
     padding: 16px !important;
     margin-bottom: 6px;
+    background: #ffffff !important;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15) !important;
   }
 
   .rating-card h6 {
@@ -197,6 +209,7 @@
 @media (max-width: 480px) {
   .ratings-section {
     padding: 20px 10px;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
   }
 
   .ratings-title {
@@ -206,10 +219,15 @@
 
   .rating-form-container {
     padding: 12px !important;
+    background: #ffffff !important;
+    border: 2px solid rgba(102, 126, 234, 0.2) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
   }
 
   .rating-card {
     padding: 12px !important;
+    background: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.15) !important;
   }
 
   .rating-card h6 {
