@@ -2,14 +2,15 @@ import React from 'react'
 import Layout from '../components/layout/Layout.js'
 import AboutSection from '../components/AboutSection'
 import SkillsSection from '../components/SkillsSection'
+import RatingsSection from '../components/RatingsSection'
 import { Link } from 'react-router-dom'
 import HomePage from '../components/style/HomePage.css'
 import bgImage from "../components/images/bg-image.jpeg"
 
 const Home = () => {
   const handleHireMe = () => {
-    const email = 'Weddi5455@gmail.com';
-    window.open(`https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${email}`, '_blank');
+    const upworkUrl = 'https://www.upwork.com/freelancers/~01133b995a1a8c8902';
+    window.open(upworkUrl, '_blank');
   }
 
   return (
@@ -29,6 +30,7 @@ const Home = () => {
         </div>
         <AboutSection />
         <SkillsSection />
+        <RatingsSection />
       </Layout>
   )
 }

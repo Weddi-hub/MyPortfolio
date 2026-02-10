@@ -84,6 +84,27 @@ const Header = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 100);
   }
+
+  // Smooth scroll to Ratings
+  const handleScrollToRatings = (e) => {
+    e.preventDefault();
+    setMobileopen(false);
+    
+    if (location.pathname === '/') {
+      const ratingsSection = document.getElementById('ratings');
+      if (ratingsSection) {
+        ratingsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const ratingsSection = document.getElementById('ratings');
+        if (ratingsSection) {
+          ratingsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }
   const drawer = (
     <Box onClick={HandleDrawerToggle} sx={{textAlign : 'center' , color:'white'}}>
 
@@ -114,6 +135,9 @@ const Header = () => {
                       </li>
                       <li>
                       <a href="#" onClick={handleScrollToWork} style={{ textDecoration: 'none', color: 'inherit' }}>Work</a>
+                      </li>
+                      <li>
+                      <a href="#" onClick={handleScrollToRatings} style={{ textDecoration: 'none', color: 'inherit' }}>Ratings</a>
                       </li>
                 </ul>
 
@@ -247,6 +271,27 @@ const Header = () => {
                         e.target.style.backgroundColor = 'transparent';
                         e.target.style.transform = 'translateY(0)';
                       }}>Work</a>
+                      </li>
+                      <li style={{ margin: 0, listStyle: 'none' }}>
+                      <a href="#" onClick={handleScrollToRatings} style={{ 
+                        textDecoration: 'none', 
+                        color: 'white',
+                        padding: '8px 12px',
+                        borderRadius: '5px',
+                        display: 'inline-block',
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.color = '#1ecc35';
+                        e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+                        e.target.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.color = 'white';
+                        e.target.style.backgroundColor = 'transparent';
+                        e.target.style.transform = 'translateY(0)';
+                      }}>Ratings</a>
                       </li>
                 </ul>
             </Box>

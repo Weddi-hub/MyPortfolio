@@ -1,0 +1,380 @@
+/* Ratings Section Styling */
+
+.ratings-section {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ratings-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(72, 61, 139, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(106, 90, 205, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.ratings-header {
+  animation: slideInDown 0.6s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+.ratings-title {
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rating-form-container {
+  animation: slideInUp 0.6s ease-out 0.2s both;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card Enhanced Styling */
+.rating-card {
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: white !important;
+}
+
+.rating-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px 12px 0 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger animation for cards */
+.rating-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.rating-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.rating-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.rating-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.rating-card:nth-child(n + 5) {
+  animation-delay: 0.5s;
+}
+
+/* Form styling */
+.rating-form-container input,
+.rating-form-container textarea {
+  transition: all 0.3s ease;
+}
+
+.rating-form-container input:focus,
+.rating-form-container textarea:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .ratings-section {
+    padding: 50px 20px;
+  }
+
+  .ratings-title {
+    font-size: 32px;
+  }
+
+  .rating-card {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ratings-section {
+    padding: 40px 15px;
+  }
+
+  .ratings-title {
+    font-size: 28px;
+  }
+
+  .rating-form-container {
+    padding: 20px !important;
+  }
+
+  .rating-card {
+    margin-bottom: 8px;
+  }
+
+  .rating-card h6 {
+    font-size: 1rem !important;
+  }
+
+  .rating-card p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .ratings-section {
+    padding: 30px 12px;
+  }
+
+  .ratings-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .rating-form-container {
+    padding: 16px !important;
+  }
+
+  .rating-card {
+    padding: 16px !important;
+    margin-bottom: 6px;
+  }
+
+  .rating-card h6 {
+    font-size: 0.95rem !important;
+  }
+
+  .rating-card p {
+    font-size: 0.85rem;
+  }
+
+  .rating-card .MuiRating-root {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ratings-section {
+    padding: 20px 10px;
+  }
+
+  .ratings-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .rating-form-container {
+    padding: 12px !important;
+  }
+
+  .rating-card {
+    padding: 12px !important;
+  }
+
+  .rating-card h6 {
+    font-size: 0.9rem !important;
+  }
+
+  .rating-card p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Form field animations */
+.MuiTextField-root {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Submit button hover effect */
+.MuiButton-contained {
+  position: relative;
+  overflow: hidden;
+}
+
+.MuiButton-contained::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.3s ease;
+  pointer-events: none;
+}
+
+.MuiButton-contained:hover::before {
+  left: 100%;
+}
+
+/* Alert animations */
+.MuiAlert-root {
+  animation: slideInDown 0.4s ease-out;
+}
+
+/* Loading spinner */
+.MuiCircularProgress-root {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Card shadows and depth */
+.rating-card {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.rating-card:hover {
+  box-shadow: 0 12px 28px rgba(102, 126, 234, 0.25);
+}
+
+/* Typography enhancements */
+.ratings-section h1,
+.ratings-section h2,
+.ratings-section h3,
+.ratings-section h4,
+.ratings-section h5,
+.ratings-section h6 {
+  color: #000;
+  font-weight: 600;
+}
+
+.ratings-section p {
+  color: #000;
+  line-height: 1.6;
+}
+
+/* Star rating colors */
+.MuiRating-iconFilled {
+  color: #FFB800 !important;
+}
+
+.MuiRating-iconHover {
+  color: #FFC107 !important;
+}
+
+/* Paper component styling */
+.MuiPaper-root {
+  background: white;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+}
+
+/* Grid spacing */
+.MuiGrid-root {
+  flex-grow: 1;
+}
+
+/* Container max width */
+.MuiContainer-root {
+  max-width: 1200px;
+}
+
+/* Accessibility */
+.ratings-section a:focus,
+.ratings-section button:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .rating-form-container {
+    display: none;
+  }
+
+  .rating-card {
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+/* Dark mode support (if needed in future) */
+@media (prefers-color-scheme: dark) {
+  .ratings-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  }
+
+  .rating-form-container {
+    background: #2d2d2d !important;
+  }
+
+  .ratings-section h1,
+  .ratings-section h2,
+  .ratings-section h3,
+  .ratings-section h4,
+  .ratings-section h5,
+  .ratings-section h6 {
+    color: #e0e0e0;
+  }
+
+  .ratings-section p {
+    color: #b0b0b0;
+  }
+
+  .rating-card {
+    background: #2d2d2d !important;
+  }
+
+  .rating-card h6 {
+    color: #e0e0e0;
+  }
+}
