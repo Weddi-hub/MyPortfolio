@@ -162,9 +162,11 @@ const RatingsSection = () => {
               elevation={3}
               className="rating-form-container"
               sx={{
-                p: { xs: 3, md: 4 },
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+                p: { xs: 2.5, sm: 3, md: 4 },
+                borderRadius: '16px',
+                background: 'white',
+                border: '1px solid rgba(102, 126, 234, 0.15)',
+                boxShadow: '0 8px 24px rgba(102, 126, 234, 0.12)',
               }}
             >
               <Typography
@@ -172,7 +174,7 @@ const RatingsSection = () => {
                 sx={{
                   fontWeight: 'bold',
                   mb: 3,
-                  color: '#333',
+                  color: '#000',
                 }}
               >
                 Submit Your Feedback
@@ -421,6 +423,7 @@ const RatingsSection = () => {
                     flex: 1,
                     overflow: 'hidden',
                     position: 'relative',
+                    px: { xs: 1, sm: 2 },
                   }}
                 >
                   <Box
@@ -455,7 +458,7 @@ const RatingsSection = () => {
                             },
                             borderRadius: '16px',
                             border: '1px solid rgba(102, 126, 234, 0.15)',
-                            minHeight: '380px',
+                            minHeight: { xs: '320px', sm: '360px', md: '380px' },
                             maxWidth: '500px',
                             width: '100%',
                             background: 'white',
@@ -552,20 +555,20 @@ const RatingsSection = () => {
                             <Box sx={{ mb: 2, flexGrow: 1 }}>
                               <Typography
                                 sx={{
-                                  fontSize: '0.95rem',
+                                  fontSize: { xs: '0.9rem', md: '0.95rem' },
                                   color: '#333',
                                   lineHeight: 1.7,
                                   fontStyle: 'italic',
                                   display: '-webkit-box',
-                                  WebkitLineClamp: 5,
+                                  WebkitLineClamp: { xs: 4, md: 5 },
                                   WebkitBoxOrient: 'vertical',
                                   overflow: 'hidden',
                                   textOverflow: 'ellipsis',
                                   backgroundColor: 'rgba(102, 126, 234, 0.05)',
-                                  padding: '12px 14px',
+                                  padding: { xs: '10px 12px', md: '12px 14px' },
                                   borderLeft: '3px solid #667eea',
                                   borderRadius: '4px',
-                                  minHeight: '95px',
+                                  minHeight: { xs: '80px', md: '95px' },
                                 }}
                               >
                                 "{ratingItem.feedback}"
